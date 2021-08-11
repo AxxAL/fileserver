@@ -3,14 +3,14 @@ const router = express.Router();
 const controller = require("./Controller");
 
 router.get("/", (req, res) => {
-    res.send({ status: "Online!" });
+    res.send({ status: "online" });
 });
 
-router.get("/files/:fileName", controller.download);
-router.get("/files", controller.getFileList);
+router.get("/dl/:fileName", controller.download);
+router.get("/list", controller.getFileList);
 
 router.use((req, res) => {
-    res.status(404).send("Nothing here... :\\");
+    res.redirect("/");
 });
 
 module.exports = router;

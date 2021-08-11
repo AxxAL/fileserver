@@ -1,16 +1,16 @@
 const express = require("express");
-const server = express();
 const settings = require("./Settings");
 const router = require("./Router");
 const morgan = require("morgan");
+const server = express();
 
 server.use(morgan("dev"));
-server.use(router, () => console.log(`Registered routes! ${router}`) );
+server.use(router);
 
-function start() {
-    server.listen(settings.PORT, () => console.log(`Application running @ http://localhost:${settings.PORT}`) );
+function Run() {
+    server.listen(settings.PORT, () => console.log(`Application is now running!\nCheck it out here: http://localhost:${settings.PORT}`));
 }
 
 module.exports = {
-    start: start
+    Run: Run
 }

@@ -1,43 +1,28 @@
 const fs = require("fs");
-const filesPath = __rootdir + "/uploads/";
-
-function getFileSize(file) {
-    fs.stat(filesPath + file, (err, stats) => {
-        if (err) {
-            console.log(`Error! ${err}`);
-            return null;
-        }
-
-        return stats;
-    });
-}
+const util = require("./Util");
+const path = require("path");
 
 function getFileList(req, res) {
-
-    fs.readdir(filesPath, (err, files) => {
-        if (err) {
-            res.status(500).send({ message: "Error! Could not find files." });
-            return;
-        } 
-
+    fs.readdir(__storagedir, (err, files) => {
         let fileInfos = [];
 
-        files.forEach((file) => {
+        files.forEach((fileName) => {
+            const fileSize = `${(util.GetFileSize(path.join(__storagedir, fileName)) / (1024 * 1024)).toFixed(1)}mb`;
+
             fileInfos.push({
-                fileName: file
+                fileName: fileName,
+                fileSize: fileSize,
+                downloadLink: `${req.headers.host}/dl/${fileName}`
             });
         });
-        
+
         res.send(fileInfos);
     });
 }
 
 function download(req, res) {
     const fileName = req.params.fileName;
-
-    res.download(filesPath + fileName, fileName, err => {
-        if (err) res.status(500).send({ message: `Error! Could not find ${fileName}.` });
-    });
+    res.download(path.join(__storagedir, fileName), (err) => { if (err) res.redirect("/") });
 }
 
 module.exports = {
