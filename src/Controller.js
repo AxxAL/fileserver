@@ -2,12 +2,12 @@ const fs = require("fs");
 const util = require("./Util");
 const path = require("path");
 
-function getFileList(req, res) {
+exports.GetFileList = (req, res) => {
     fs.readdir(__storagedir, (err, files) => {
         let fileInfos = [];
 
         files.forEach((fileName) => {
-            const fileSize = `${(util.GetFileSize(path.join(__storagedir, fileName)) / (1024 * 1024)).toFixed(1)}mb`;
+            const fileSize = `${(util.GetFileSize(path.join(__storagedir, fileName))).toFixed(1)}mb`;
 
             fileInfos.push({
                 fileName: fileName,
@@ -20,12 +20,8 @@ function getFileList(req, res) {
     });
 }
 
-function download(req, res) {
-    const fileName = req.params.fileName;
-    res.download(path.join(__storagedir, fileName), (err) => { if (err) res.redirect("/") });
-}
-
-module.exports = {
-    download,
-    getFileList
+exports.Download = (req, res) => {
+    res.download(path.join(__storagedir, req.params.fileName), (err) => {
+        if (err) res.redirect("/");
+    });
 }

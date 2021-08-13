@@ -1,6 +1,6 @@
 const fs = require("fs");
 
-function CheckStorageDir() {
+exports.CheckStorageDir = () => {
     fs.access(__storagedir, (err) => {
         if (err) {
             console.log(`Storage directory not found. Creating directory [${__storagedir}]`);
@@ -9,22 +9,17 @@ function CheckStorageDir() {
                     console.error("Could not create storage directory.");
                     return;
                 }
-                console.log(`Directory successfully created.`);
+                console.log("Directory successfully created.");
             });
         }
     });
 }
 
-function GetFileSize(filepath) {
+exports.GetFileSize = (filepath) => {
     if (!fs.existsSync(filepath)) {
-        console.error(`Could not get size of ${filepath}`)
+        console.error(`Could not get size of ${filepath}`);
         return 0;
     }
     const stats = fs.statSync(filepath);
-    return stats.size;
-}
-
-module.exports =  {
-    CheckStorageDir,
-    GetFileSize
+    return stats.size / (1024 * 1024);
 }

@@ -6,8 +6,8 @@ router.get("/", (req, res) => {
     res.send({ status: "online" });
 });
 
-router.get("/dl/:fileName", controller.download);
-router.get("/list", controller.getFileList);
+router.get("/dl/:fileName", controller.Download);
+router.get("/list", controller.GetFileList);
 
 router.use((req, res) => {
     res.redirect("/");

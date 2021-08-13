@@ -7,10 +7,4 @@ const server = express();
 server.use(morgan("dev"));
 server.use(router);
 
-function Run() {
-    server.listen(settings.PORT, () => console.log(`Application is now running!\nCheck it out here: http://localhost:${settings.PORT}`));
-}
-
-module.exports = {
-    Run: Run
-}
+exports.Run = () => server.listen(settings.PORT, () => console.log(`Application is now running!\nCheck it out here: http://localhost:${settings.PORT}`));
