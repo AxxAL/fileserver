@@ -8,6 +8,7 @@ router.get("/", (req, res) => {
 
 router.get("/dl/:fileName", controller.Download);
 router.get("/list", controller.GetFileList);
+router.post("/upload", controller.Upload);
 
 router.use((req, res) => {
     res.redirect("/");

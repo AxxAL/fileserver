@@ -20,6 +20,7 @@ exports.GetFileSize = (filepath) => {
         console.error(`Could not get size of ${filepath}`);
         return 0;
     }
+
     const stats = fs.statSync(filepath);
     return stats.size / (1024 * 1024);
 }

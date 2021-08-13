@@ -31,5 +31,7 @@ npm-debug.log
 
 .DS_Store
 
+# User specific
 .env
 files
+tmp
