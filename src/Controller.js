@@ -12,7 +12,7 @@ exports.GetFileList = (req, res) => {
             fileList.push({
                 fileName: fileName,
                 fileSize: `${(util.GetFileSize(path.join(__storagedir, fileName))).toFixed(1)}mb`,
-                downloadLink: `${req.headers.host}/dl/${fileName}`
+                downloadLink: `https://${req.headers.host}/dl/${fileName}`
             });
         });
 
