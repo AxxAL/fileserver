@@ -4,6 +4,7 @@ const router = require("./Router");
 const morgan = require("morgan");
 const path = require("path");
 const fileUpload = require("express-fileupload");
+const cors = require("cors");
 const server = express();
 
 server.use(fileUpload({
@@ -12,6 +13,7 @@ server.use(fileUpload({
     tempFileDir: path.join(__rootdir, "/tmp")
 }));
 server.use(morgan("dev"));
+server.use(cors());
 server.use(router);
 
 exports.Run = () => server.listen(settings.PORT, () => console.log(`Application is now running!\nCheck it out here: http://localhost:${settings.PORT}`));
